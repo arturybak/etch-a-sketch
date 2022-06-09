@@ -1,5 +1,6 @@
 let dimensions = 16;
-let mode = 'shading';
+let mode = 'color';
+
 const genButton = document.querySelector('button');
 genButton.addEventListener('click', function () {
     let input = parseInt(prompt('How many rows/columns?', dimensions));
@@ -8,6 +9,15 @@ genButton.addEventListener('click', function () {
 });
 
 const grid = document.querySelector('.grid');
+
+function changeMode(choice) {
+    mode = choice;
+    generateGrid();
+}
+
+const modes = document.querySelector('.modes');
+const modesBtns = modes.childNodes;
+modesBtns.forEach(btn => btn.addEventListener('click', () => changeMode(btn.id)));
 
 function colorSquare(square) {
     switch (mode) {
