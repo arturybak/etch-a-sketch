@@ -1,12 +1,16 @@
 let dimensions = 16;
 let mode = 'color';
 
-const genButton = document.querySelector('button');
+const genButton = document.querySelector('#generate');
 genButton.addEventListener('click', function () {
     let input = parseInt(prompt('How many rows/columns?', dimensions));
     (input > 0 && input < 100) ? dimensions = input : alert('The grid has to be 1-99 rows wide');
     generateGrid();
 });
+
+const clearButton = document.querySelector('#clear');
+clearButton.addEventListener('click', () => generateGrid());
+
 
 const grid = document.querySelector('.grid');
 
