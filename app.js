@@ -6,6 +6,6 @@ grid.style.gridTemplateRows = `repeat(16, 1fr)`
 for(let i = 0; i < 16 * 16; i++) {
     const square = document.createElement('div');
     square.className = 'square';
-    square.textContent = '1';
+    square.addEventListener('mouseover', () => square.classList.add('hovered'));
     grid.appendChild(square);
 }

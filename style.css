@@ -9,9 +9,10 @@ body {
     display: grid;
     width: 500px;
     height: 500px;
-    background-color: red;
+    box-shadow: 0px 0px 5px 2px #88FCD1;
 }
 
-.square {
+.hovered {
+    background-color:plum;
     /* user-select: none; */
 }
