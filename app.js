@@ -11,6 +11,9 @@ genButton.addEventListener('click', function () {
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () => generateGrid());
 
+let mouseDown = false
+document.body.onmousedown = () => (mouseDown = true)
+document.body.onmouseup = () => (mouseDown = false)
 
 const grid = document.querySelector('.grid');
 
@@ -23,19 +26,20 @@ const modes = document.querySelector('.modes');
 const modesBtns = modes.childNodes;
 modesBtns.forEach(btn => btn.addEventListener('click', () => changeMode(btn.id)));
 
-function colorSquare(square) {
+function colorSquare(e) {
+    if (e.type === 'mouseover' && !mouseDown ) return
     switch (mode) {
         case 'color':
-            square.style.backgroundColor = 'plum';
+            e.target.style.backgroundColor = 'plum';
             break;
         case 'rainbow':
-            square.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            e.target.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
             break;
         case 'shading':
-            let currentColor = square.style.backgroundColor;
+            let currentColor = e.target.style.backgroundColor;
             let opacity = Number(currentColor.slice(-4, -1))
             if (opacity < 1) {
-                square.style.backgroundColor = `rgba(0, 0, 0, ${opacity + 0.1})`;
+                e.target.style.backgroundColor = `rgba(0, 0, 0, ${opacity + 0.1})`;
             }
     }
 }
@@ -47,7 +51,8 @@ function generateGrid() {
     for (let i = 0; i < dimensions * dimensions; i++) {
         const square = document.createElement('div');
         square.className = 'square';
-        square.addEventListener('mouseover', () => colorSquare(square));
+        square.addEventListener('mouseover', colorSquare);
+        square.addEventListener('mousedown', colorSquare);
         grid.appendChild(square);
     }
 }
